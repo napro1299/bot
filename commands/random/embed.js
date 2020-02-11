@@ -10,7 +10,7 @@ class EmbedCommand extends Commando.Command {
             description: 'Embed text',
             examples: ['This is an embed.'],
             args: [
-                {
+                { 
                     key: 'text',
                     prompt: 'Text to embed',
                     type: 'string'
@@ -19,13 +19,12 @@ class EmbedCommand extends Commando.Command {
         });
     }
 
-    run(msg, args) {
-        const { text } = args;
+    run(msg, { text }) { 
         const embed = new RichEmbed()
             .setDescription(text)
             .setAuthor(msg.author.username, msg.author.displayAvatarURL)
             .setColor(0x00AE86)
-            .setTimestamp();
+        .setTimestamp();
 
         return msg.embed(embed);
     }
