@@ -9,19 +9,25 @@ class RedditCommand extends Commando.Command {
             group: 'random',
             memberName: 'reddit',
             description: 'reddit bruh',
-            examples: ['!reddit aww']
+            examples: ['!reddit aww'],
+            args: [
+                { 
+                    key: 'subreddit',
+                    prompt: 'Subreddit',
+                    type: 'string'
+                }
+            ]
         });
     }
 
-    async run(msg, args) {
+     run(msg, { subreddit }) {
         let reddit = [
             "aww",
-            "Gifs",
-            "NatureIsMetal",
-            "pics",
+            "gifs"
         ];
 
-        let subreddit = reddit[Math.floor(Math.random() * reddit.length - 1)];
+        //reddit[Math.floor(Math.random() * reddit.length - 1)];
+    
 
         msg.channel.startTyping();
 
@@ -33,8 +39,12 @@ class RedditCommand extends Commando.Command {
                         name: 'meme.png'
                     }]
                 }).then(() => msg.channel.stopTyping());
-            }).catch(err => console.error(err));
-        }).catch(err => console.error(err));
+            }).catch(err => {console.error(err); 
+                msg.channel.stopTyping();
+            });
+        }).catch(err => {console.error(err); 
+            msg.channel.stopTyping();
+        });
     }
 }
 
