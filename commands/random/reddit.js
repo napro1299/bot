@@ -13,7 +13,7 @@ class RedditCommand extends Commando.Command {
         });
     }
 
-    run(msg, args) {
+    async run(msg, args) {
         let reddit = [
             "aww",
             "Gifs",
@@ -23,7 +23,7 @@ class RedditCommand extends Commando.Command {
 
         let subreddit = reddit[Math.floor(Math.random() * reddit.length - 1)];
 
-        msg.startTyping();
+        msg.channel.startTyping();
 
         randompuppy(subreddit).then(url => {
             snekfetch.get(url).then(async res => {
@@ -32,7 +32,7 @@ class RedditCommand extends Commando.Command {
                         attachment: res.body,
                         name: 'meme.png'
                     }]
-                }).then(() => msg.stopTyping());
+                }).then(() => msg.channel.stopTyping());
             }).catch(err => console.error(err));
         }).catch(err => console.error(err));
     }
